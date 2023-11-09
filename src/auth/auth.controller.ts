@@ -9,7 +9,10 @@ export class AuthController {
 
   @Post('/register')
   async registerAccount(@Body() userDTO: UserDTO): Promise<any> {
-    return await this.authService.registerUser(userDTO);
+    await this.authService.registerUser(userDTO);
+    return {
+      message: '회원가입 되었습니다.',
+    };
   }
 
   @Post('/login')
