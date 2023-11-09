@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
-    ConfigModule.forRoot(), // 환경 변수 로딩을 위한 모듈
+    AuthModule,
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: () => ({
@@ -16,6 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         database: process.env.DB_NAME,
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true,
+        logging: true,
       }),
     }),
   ],
