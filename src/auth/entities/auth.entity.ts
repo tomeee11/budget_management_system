@@ -1,3 +1,4 @@
+import { Budget } from '../../budget/entities/budget.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -5,6 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Unique,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -24,4 +26,7 @@ export class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Budget, (budget) => budget.user, { cascade: true })
+  budget: Budget;
 }
