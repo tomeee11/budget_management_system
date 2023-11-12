@@ -1,3 +1,4 @@
+import { Expense } from 'src/expense/entities/expense.entity';
 import { Budget } from '../../budget/entities/budget.entity';
 import {
   Entity,
@@ -29,4 +30,7 @@ export class User {
 
   @OneToMany(() => Budget, (budget) => budget.user, { cascade: true })
   budget: Budget;
+
+  @OneToMany(() => Expense, (expense) => expense.user, { cascade: true })
+  expense: Expense;
 }
