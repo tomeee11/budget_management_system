@@ -16,8 +16,4 @@ export class ExpenseListQueryDto {
 
   @IsString()
   maxAmount: number;
-
-  @IsOptional()
-  @IsBoolean()
-  excludeTotal?: boolean;
 }

@@ -109,15 +109,13 @@ export class ExpenseService {
     const categorySummaries = new Map<string, number>();
 
     filteredExpenses.forEach((expense) => {
-      if (expense.categorie && expense.categorie.title) {
-        const categoryTitle = expense.categorie.title;
-        const amount = expense.amount;
+      const categoryTitle = expense.categorie.title;
+      const amount = expense.amount;
 
-        categorySummaries.set(
-          categoryTitle,
-          (categorySummaries.get(categoryTitle) || 0) + amount,
-        );
-      }
+      categorySummaries.set(
+        categoryTitle,
+        (categorySummaries.get(categoryTitle) || 0) + amount,
+      );
     });
 
     const categorySummariesArray = Array.from(categorySummaries).map(
@@ -129,11 +127,12 @@ export class ExpenseService {
 
     return new ExpenseSummary(totalAmount, categorySummariesArray);
   }
+
   async expensesQuery(
     expenseListQueryDto: ExpenseListQueryDto,
     user: User,
   ): Promise<Expense[]> {
-    const { startDate, endDate, title, minAmount, maxAmount, excludeTotal } =
+    const { startDate, endDate, title, minAmount, maxAmount } =
       expenseListQueryDto;
 
     const queryBuilder = this.expenseRepository
