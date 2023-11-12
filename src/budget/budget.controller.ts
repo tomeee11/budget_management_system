@@ -13,12 +13,12 @@ import { User } from 'src/auth/entities/auth.entity';
 import { CreateBudgetDto } from './dto/create-budget.dto';
 import { UpdateBudgetDto } from './dto/update-budget.dto';
 
-@Controller('api')
+@Controller('api/budget')
 @UseGuards(AuthGuard())
 export class BudgetController {
   constructor(private readonly budgetService: BudgetService) {}
 
-  @Post('budget')
+  @Post()
   async setBudget(
     @GetUser() user: User,
     @Body() createBudgetDto: CreateBudgetDto,
@@ -29,7 +29,7 @@ export class BudgetController {
     };
   }
 
-  @Patch('budget/:id')
+  @Patch('/:id')
   async modifyBudget(
     @GetUser() user: User,
     @Param('id') id: number,
@@ -41,7 +41,7 @@ export class BudgetController {
     };
   }
 
-  @Post('budget/auto-distribute')
+  @Post('/auto-distribute')
   async autoDistributeBudget(
     @GetUser() user: User,
     @Body('amount') amount: number,

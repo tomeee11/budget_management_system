@@ -5,11 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  ManyToOne,
 } from 'typeorm';
 import { CategorieType } from '../enum/categorie-type.enum';
-import { User } from 'src/auth/entities/auth.entity';
 import { Budget } from 'src/budget/entities/budget.entity';
+import { Expense } from 'src/expense/entities/expense.entity';
 
 @Entity()
 export class Categorie {
@@ -27,4 +26,7 @@ export class Categorie {
 
   @OneToMany(() => Budget, (budget) => budget.categorie, { cascade: true })
   budget: Budget;
+
+  @OneToMany(() => Expense, (expense) => expense.categorie, { cascade: true })
+  expense: Expense;
 }

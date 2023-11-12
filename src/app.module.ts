@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { CategorieModule } from './categorie/categorie.module';
 import { BudgetModule } from './budget/budget.module';
+import { ExpenseModule } from './expense/expense.module';
 @Module({
   imports: [
     AuthModule,
@@ -22,11 +23,12 @@ import { BudgetModule } from './budget/budget.module';
         database: process.env.DB_NAME,
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true,
-        logging: true,
+        // logging: true,
       }),
     }),
     CategorieModule,
     BudgetModule,
+    ExpenseModule,
   ],
 })
 export class AppModule {}
