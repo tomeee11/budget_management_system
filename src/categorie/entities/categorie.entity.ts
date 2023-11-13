@@ -18,6 +18,9 @@ export class Categorie {
   @Column()
   title: CategorieType;
 
+  @Column()
+  monthlyBudget: number;
+
   @CreateDateColumn()
   created_at: Date;
 

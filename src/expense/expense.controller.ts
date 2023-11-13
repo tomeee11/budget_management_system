@@ -17,11 +17,15 @@ import { GetUser } from 'src/auth/deco/get-user.decorator';
 import { User } from 'src/auth/entities/auth.entity';
 import { Expense } from './entities/expense.entity';
 import { ExpenseListQueryDto } from './dto/query-expense.dto';
+import { ConsultingService } from './consulting.service';
 
 @Controller('api/expense')
 @UseGuards(AuthGuard())
 export class ExpenseController {
-  constructor(private readonly expenseService: ExpenseService) {}
+  constructor(
+    private readonly expenseService: ExpenseService,
+    private readonly consultingService: ConsultingService,
+  ) {}
 
   @Post()
   async createExpense(
@@ -71,5 +75,15 @@ export class ExpenseController {
     @Query() expenseListQueryDto: ExpenseListQueryDto,
   ): Promise<any> {
     return await this.expenseService.findExpense(user, expenseListQueryDto);
+  }
+
+  @Get('/consulting/recommendation')
+  getRecommendation(@GetUser() user: User) {
+    return this.consultingService.generateRecommendation(user);
+  }
+
+  @Get('/consulting/today')
+  getTodayExpenses(@GetUser() user: User) {
+    return this.consultingService.getTodaySummary(user);
   }
 }
