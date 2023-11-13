@@ -17,9 +17,6 @@ export class Budget {
   @Column()
   amount: number;
 
-  @Column({ default: null })
-  period: string;
-
   @CreateDateColumn()
   created_at: Date;
 

@@ -5,14 +5,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Expense } from './entities/expense.entity';
 import { PassportModule } from '@nestjs/passport';
 import { CategorieModule } from 'src/categorie/categorie.module';
+import { ConsultingService } from './consulting.service';
+import { BudgetModule } from 'src/budget/budget.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Expense]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     CategorieModule,
+    BudgetModule,
   ],
   controllers: [ExpenseController],
-  providers: [ExpenseService],
+  providers: [ExpenseService, ConsultingService],
 })
 export class ExpenseModule {}

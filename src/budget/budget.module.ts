@@ -14,5 +14,6 @@ import { CategorieModule } from 'src/categorie/categorie.module';
   ],
   controllers: [BudgetController],
   providers: [BudgetService],
+  exports: [BudgetService],
 })
 export class BudgetModule {}
