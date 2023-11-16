@@ -18,6 +18,8 @@ import { User } from 'src/auth/entities/auth.entity';
 import { Expense } from './entities/expense.entity';
 import { ExpenseListQueryDto } from './dto/query-expense.dto';
 import { ConsultingService } from './consulting.service';
+import { ExpenseComparisonQueryDto } from './dto/comparison-expense.dto';
+import { StatisticsService } from './statistics.service';
 
 @Controller('api/expense')
 @UseGuards(AuthGuard())
@@ -25,6 +27,7 @@ export class ExpenseController {
   constructor(
     private readonly expenseService: ExpenseService,
     private readonly consultingService: ConsultingService,
+    private readonly statisticsService: StatisticsService,
   ) {}
 
   @Post()
@@ -85,5 +88,18 @@ export class ExpenseController {
   @Get('/consulting/today')
   getTodayExpenses(@GetUser() user: User) {
     return this.consultingService.getTodaySummary(user);
+  }
+
+  @Get('/type/statistics')
+  async getExpenseStatistics(
+    @GetUser() user: User,
+    @Query() expenseComparisonQueryDto: ExpenseComparisonQueryDto,
+  ): Promise<any> {
+    const statistics = await this.statisticsService.compareExpenses(
+      user,
+      expenseComparisonQueryDto,
+    );
+
+    return statistics;
   }
 }
