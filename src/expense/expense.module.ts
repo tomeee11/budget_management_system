@@ -7,6 +7,7 @@ import { PassportModule } from '@nestjs/passport';
 import { CategorieModule } from 'src/categorie/categorie.module';
 import { ConsultingService } from './consulting.service';
 import { BudgetModule } from 'src/budget/budget.module';
+import { StatisticsService } from './statistics.service';
 
 @Module({
   imports: [
@@ -16,6 +17,6 @@ import { BudgetModule } from 'src/budget/budget.module';
     BudgetModule,
   ],
   controllers: [ExpenseController],
-  providers: [ExpenseService, ConsultingService],
+  providers: [ExpenseService, ConsultingService, StatisticsService],
 })
 export class ExpenseModule {}
